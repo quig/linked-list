@@ -13,6 +13,13 @@ class TestStringMethods(unittest.TestCase):
         list = LinkedList(["1", "2", "3"]).reverse()
         self.assertEqual("3->2->1->NULL", list.printList())
 
+    def test_should_handle_empty_list(self):
+        list = LinkedList([]).reverse()
+        self.assertEqual("NULL", list.printList())
+
+    def test_should_handle_single_item_list(self):
+        list = LinkedList(["1"]).reverse()
+        self.assertEqual("1->NULL", list.printList())
 
 
 if __name__ == '__main__':

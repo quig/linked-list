@@ -15,27 +15,37 @@ class LinkedList:
         if self.head is None:
             self.head = Node(data=data)
         else:
-            currentNode = self.head
-            while currentNode.next is not None:
-                currentNode = currentNode.next
-            currentNode.next = Node(data=data)
+            current_node = self.head
+            while current_node.next is not None:
+                current_node = current_node.next
+            current_node.next = Node(data=data)
 
     def reverse(self):
-        currentNode = self.head
-        while currentNode is not None:
-            currentNode, currentNode.next = currentNode.next, currentNode
+        previous_node, current_node, following_node = None, self.head, None
+
+        while current_node is not None:
+            following_node = current_node.next
+            current_node.next = previous_node
+            previous_node = current_node
+            current_node = following_node
+
+        # we reached the end here, we assign the new head
+        self.head = previous_node
         return self
 
     def printList(self):
         textToDisplay = ""
-        currentNode = self.head
+        current_node = self.head
 
-        while currentNode is not None:
-            if currentNode == self.head:
-                textToDisplay += currentNode.data
+        while current_node is not None:
+            if current_node == self.head:
+                textToDisplay += current_node.data
             else:
-                textToDisplay += "->" + currentNode.data
-            currentNode = currentNode.next
-        textToDisplay += "->NULL"
+                textToDisplay += "->" + current_node.data
+            current_node = current_node.next
+        if current_node == self.head:
+            textToDisplay += "NULL"
+        else:
+            textToDisplay += "->NULL"
 
         return textToDisplay
